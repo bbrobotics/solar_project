@@ -24,10 +24,8 @@ public class DarkSkyWeather implements WeatherInterface{
 	}
 
 	@Override
-	public double[] timeLastUpdated() {
-		// TODO Auto-generated method stub
-		
-		return null;
+	public int[] timeLastUpdated() {
+		return getTimeIntArrayFromString(io.getTime());
 	}
 
 	@Override
@@ -205,9 +203,14 @@ public class DarkSkyWeather implements WeatherInterface{
 	}
 
 	@Override
-	public int getMaxDewPoint() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getDewPoint() {
+		if(io.hasCurrently())
+		{
+			FIOCurrently currently = new FIOCurrently(io);
+			return currently.get().dewPoint();
+		}
+		
+		return -1;
 	}
 
 	@Override

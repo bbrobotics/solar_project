@@ -80,7 +80,7 @@ public interface WeatherInterface {
 	 * Returns the dew point
 	 * @return the dew point
 	 */
-	public int getMaxDewPoint();
+	public double getDewPoint();
 	
 	/**
 	 * Returns the sunrise time in the same format as lastTimeUpdated().
