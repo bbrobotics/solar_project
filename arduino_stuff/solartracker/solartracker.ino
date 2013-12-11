@@ -13,8 +13,13 @@ ADK adk(&Usb,"SolarProjectTeam",
 
 Servo victor;
 
-int victorPin = 4;
-int tempSensorPin = 0;
+//If type not specified analog, it is digital.
+int victorPin = 3;
+int tempSensorPin = 0, tempSensorPin2 = 1;  //Analog
+int encoderPin1 = 4, encoderPin2 = 5;
+int moistureSensorPin = 2; //Analog
+int currentSensor1 = 3, currentSensor2 = 4;  //Analog
+
 int victorValue = 90;
 int tempSensorValue;
 byte victorDirection = 0;
@@ -37,8 +42,6 @@ void setup()
   Serial.println("USB initialized.");
   Serial.println(sizeof(receiveBuffer));
 
-  pinMode(connectedLed, OUTPUT);
-  pinMode(controlledLed, OUTPUT);
   victor.attach(victorPin);
 }
 
@@ -96,6 +99,11 @@ void loop()
     digitalWrite(connectedLed, LOW); 
   }
   delay(100);
+}
+
+void sendSensorData()
+{
+  
 }
 
 byte processTemperatureSensorData(int temp)
