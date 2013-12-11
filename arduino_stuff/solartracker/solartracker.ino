@@ -64,18 +64,17 @@ void loop()
     {
       Serial.println("Data received successfully!");
       Serial.println(receiveBuffer[0]);
-      if (receiveBuffer[0] == byte(0))
+      
+      if(receiveBuffer[1] == 0)//If protected mode not enabled...
       {
-        Serial.println("Turning on LED.");
-        digitalWrite(controlledLed, HIGH);
+        rotateTo(receiveBuffer[0]);
       }
       else
       {
-        Serial.println("Turning off LED. ");
-        digitalWrite(controlledLed, LOW); 
+       rotateTo(0);//Close the panels. 
       }
       
-      victorValue = int(receiveBuffer[1]);
+      /*victorValue = int(receiveBuffer[1]);
       victorDirection = receiveBuffer[2];
       Serial.println(victorValue);
       if(victorDirection == 0x1)
@@ -85,7 +84,7 @@ void loop()
       victorValue = victorValue + 100;
       victorValue = int(victorValue * 0.9);
       Serial.println(victorValue);
-      victor.write(victorValue);
+      victor.write(victorValue);*/
       
     }
     
@@ -114,6 +113,11 @@ void sendData()
   sendBuffer[6] = processCurrentSensorData(analogRead(currentSensorPin1));
   sendBuffer[7] = processCurrentSensorData(analogRead(currentSensorPin2));
   adk.SndData(sLength, sendBuffer);
+}
+
+void rotateTo(byte angle)
+{
+ //Todo stub 
 }
 
 byte processTemperatureSensorData(int temp)
