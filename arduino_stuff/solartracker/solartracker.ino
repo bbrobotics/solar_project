@@ -18,14 +18,16 @@ int victorPin = 3;
 int tempSensorPin = 0, tempSensorPin2 = 1;  //Analog
 int encoderPin1 = 4, encoderPin2 = 5;
 int moistureSensorPin = 2; //Analog
-int currentSensor1 = 3, currentSensor2 = 4;  //Analog
+int currentSensorPin1 = 3, currentSensorPin2 = 4;  //Analog
+int windSpeedSensorPin = -1 //Pin to be determined
 
 int victorValue = 90;
 int tempSensorValue;
 byte victorDirection = 0;
+byte protectionStatus = 0;
 
 byte receiveBuffer[3];
-byte sendBuffer[1];
+byte sendBuffer[8];
 uint16_t length;
 uint16_t sLength;
 
@@ -101,9 +103,17 @@ void loop()
   delay(100);
 }
 
-void sendSensorData()
+void sendData()
 {
-  
+  sendBuffer[0] = protectionStatus;
+  sendBuffer[1] = encoderPosition();
+  sendBuffer[2] = processWindSpeedSensorData(analogRead(windSpeedSensorPin));
+  sendBuffer[3] = processTemperatureSensorData(analogRead(tempSensorPin));
+  sendBuffer[4] = processTemperatureSensorData(analogRead(tempSensorPin2));
+  sendBuffer[5] = processMoistureSensorData(analogRead(moistureSensorPin));
+  sendBuffer[6] = processCurrentSensorData(analogRead(currentSensorPin1));
+  sendBuffer[7] = processCurrentSensorData(analogRead(currentSensorPin2));
+  adk.SndData(sLength, sendBuffer);
 }
 
 byte processTemperatureSensorData(int temp)
@@ -119,4 +129,24 @@ byte processTemperatureSensorData(int temp)
                                 conversion ensures that temp fits into
                                 tempByte. */
   return tempByte;
+}
+
+byte endcoderPosition()
+{
+ //Todo stub 
+}
+
+byte processMoistureSensorData(int data)
+{
+ //Todo stub 
+}
+
+byte processCurrentSensorData(int data)
+{
+ //Todo stub 
+}
+
+byte processWindSpeedSensorData(int data)
+{
+  
 }
