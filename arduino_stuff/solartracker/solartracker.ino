@@ -117,19 +117,19 @@ void sendData()
 
 void rotateTo(byte angle)
 {
- if(angle > encoderPosition())
+ if(angle > encoderPosition())//If the solar panels are below the target...
  {
   while(angle > encoderPosition)
    {
-     victor.write(120);
+     victor.write(120);//...rotate them to the target while they are lower than the target.
    }
    vitor.write(90);//90 stops the talon.
  }
- else if(angle < encoderPosition)
+ else if(angle < encoderPosition)//If the solar panels are above the target...
  {
    while(angle < encoderPosition)
    {
-     victor.write(60);
+     victor.write(60);//...rotate them to the target while they are above the target.
    }
    vitor.write(90);//90 stops the talon.
  }
