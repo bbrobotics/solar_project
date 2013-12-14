@@ -117,7 +117,23 @@ void sendData()
 
 void rotateTo(byte angle)
 {
- //Todo stub 
+ if(angle > encoderPosition())
+ {
+  while(angle > encoderPosition)
+   {
+     victor.write(120);
+   }
+   vitor.write(90);//90 stops the talon.
+ }
+ else if(angle < encoderPosition)
+ {
+   while(angle < encoderPosition)
+   {
+     victor.write(60);
+   }
+   vitor.write(90);//90 stops the talon.
+ }
+ else victor.write(90);
 }
 
 byte processTemperatureSensorData(int temp)
@@ -152,5 +168,5 @@ byte processCurrentSensorData(int data)
 
 byte processWindSpeedSensorData(int data)
 {
-  
+  //Todo stub
 }
